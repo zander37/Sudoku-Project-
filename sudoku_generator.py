@@ -60,20 +60,25 @@ class SudokuGenerator:
             return False
 
     def fill_box(self, row_start, col_start):
-        pass
+        box_values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        random.shuffle(box_values)
+        for i in range(3):
+            for j in range(3):
+                self.board[row_start + i][col_start + j] = box_values.pop()
 
     def fill_diagonal(self):
-        pass
+        for i in range(0, 9, 3):
+            self.fill_box(i, i)
 
     # '''
     # DO NOT CHANGE
     # Provided for students
     # Fills the remaining cells of the board
     # Should be called after the diagonal boxes have been filled
-    # 
+    #
 	# Parameters:
 	# row, col specify the coordinates of the first empty (0) cell
-    # 
+    #
 	# Return:
 	# boolean (whether or not we could solve the board)
     # '''
@@ -109,7 +114,7 @@ class SudokuGenerator:
     # DO NOT CHANGE
     # Provided for students
     # Constructs a solution by calling fill_diagonal and fill_remaining
-    # 
+    #
 	# Parameters: None
 	# Return: None
     # '''
@@ -123,10 +128,10 @@ class SudokuGenerator:
     # This is done by setting some values to 0
     # Should be called after the entire solution has been constructed
     # i.e. after fill_values has been called
-    # 
+    #
     # NOTE: Be careful not to 'remove' the same cell multiple times
     # i.e. if a cell is already 0, it cannot be removed again
-    # 
+    #
 	# Parameters: None
 	# Return: None
     # '''
@@ -143,11 +148,11 @@ class SudokuGenerator:
 # 2. fills its values and saves this as the solved state
 # 3. removes the appropriate number of cells
 # 4. returns the representative 2D Python Lists of the board and solution
-# 
+#
 # Parameters:
 # size is the number of rows/columns of the board (9 for this project)
 # removed is the number of cells to clear (set to 0)
-# 
+#
 # Return: list[list] (a 2D Python list to represent the board)
 # '''
 
