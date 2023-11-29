@@ -1,4 +1,4 @@
-import math, random, pygame
+import math, random
 
 
 class SudokuGenerator:
@@ -149,10 +149,6 @@ class SudokuGenerator:
         for tup in check:
             self.board[tup[0]][tup[1]] = 0
 
-
-
-
-# '''
 # DO NOT CHANGE
 # Provided for students
 # Given a number of rows and number of cells to remove, this function:
@@ -166,7 +162,6 @@ class SudokuGenerator:
 # removed is the number of cells to clear (set to 0)
 #
 # Return: list[list] (a 2D Python list to represent the board)
-# '''
 
 
 def generate_sudoku(size, removed):
