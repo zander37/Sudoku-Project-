@@ -17,13 +17,13 @@ class SudokuGenerator:
             [],
             []
         ]
-        self.box_length = math.sqrt(row_length)
+        self.box_length = int(math.sqrt(row_length))
 
     def get_board(self):
         for row in self.board:
             for i in range(9):
                 row.append(0)
-        return board
+        return self.board
 
     def print_board(self):
         for row in self.board:
@@ -54,7 +54,7 @@ class SudokuGenerator:
         return True
 
     def is_valid(self, row, col, num):
-        if self.valid_in_row(row, num) and self.valid_in_col(col, num) and self.valid_in_box(row, col, num):
+        if self.valid_in_row(row, num) and self.valid_in_col(col, num) and self.valid_in_box(row - row % 3, col - col % 3, num):
             return True
         else:
             return False
@@ -137,7 +137,19 @@ class SudokuGenerator:
     # '''
 
     def remove_cells(self):
-        pass
+        check = []
+        while len(check) != self.removed_cells:
+            row = random.randint(0, 8)
+            col = random.randint(0, 8)
+            coord = (row, col)
+            check.append(coord)
+            if len(check) != len(set(check)):
+                check.pop(-1)
+                continue
+        for tup in check:
+            self.board[tup[0]][tup[1]] = 0
+
+
 
 
 # '''
@@ -164,12 +176,3 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
-
-# Test Cases
-board = SudokuGenerator(9, 0)
-board.get_board()
-board.print_board()
-
-
-
-
