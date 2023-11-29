@@ -20,9 +20,6 @@ class SudokuGenerator:
         self.box_length = int(math.sqrt(row_length))
 
     def get_board(self):
-        for row in self.board:
-            for i in range(9):
-                row.append(0)
         return self.board
 
     def print_board(self):
@@ -67,6 +64,9 @@ class SudokuGenerator:
                 self.board[row_start + i][col_start + j] = box_values.pop()
 
     def fill_diagonal(self):
+        for row in self.board:
+            for i in range(9):
+                row.append(0)
         for i in range(0, 9, 3):
             self.fill_box(i, i)
 
