@@ -679,6 +679,7 @@ if __name__ == "__main__":
                         display_selected(row, col)
                     elif reset_rectangle.collidepoint(event.pos):
                         board_copy = board_copy_2
+			board = board_copy_2
                         inserted.clear()
                         filled.clear()
                         filled.extend(sudoku_generator.get_original(board))
