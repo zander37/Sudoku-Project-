@@ -1,7 +1,7 @@
 import math, random, copy, sys, pygame
 
 
-class SudokuGenerator:
+class SudokuGenerator:  # SuodukuGenerator Class
 
     def __init__(self, row_length, removed_cells):
         self.row_length = row_length
@@ -178,6 +178,7 @@ def generate_sudoku(size, removed):
     return board_sol, board
 
 # Added Methods
+# ------------------------------------------------
 
 def available_square(board, row, col):
     try:
@@ -499,7 +500,7 @@ def make_sketch(row, col):  #  Creates a Sketch
     return True
 
 
-def draw_sketches():
+def draw_sketches():  # Draws Sketched Values Onto Board
     num_one_surf = number_font.render('1', 0, (128, 128, 128))
     num_two_surf = number_font.render('2', 0, (128, 128, 128))
     num_three_surf = number_font.render('3', 0, (128, 128, 128))
@@ -542,7 +543,7 @@ def draw_sketches():
             screen.blit(num_nine_surf, num_nine_rect)
 
 
-def draw_game():
+def draw_game():  # Draws Game Board
 
     # Initialize Board
     display_grid()
@@ -551,14 +552,14 @@ def draw_game():
     # Buttons
 
 
-def draw_game_over(winner):
+def draw_game_over(winner):  # Draws Winner Screen and Loser Screen
 
     button_font = pygame.font.Font(None, 100)
     cont = True
     backround = pygame.image.load("Sudoku-RIddles-Game-Quiz-Shutterstock.webp")
     backround_new = pygame.transform.scale(backround, (1200, 900))
 
-    if winner:
+    if winner:  # If Winner
         screen.fill((255, 255, 255))
         screen.blit(backround_new, (0, 0))
         end_text = "YOU WIN! :D"
@@ -579,12 +580,12 @@ def draw_game_over(winner):
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if exit_rectangle.collidepoint(event.pos):
+                    if exit_rectangle.collidepoint(event.pos): # Exit Button
                         pygame.quit()
                         sys.exit()
             pygame.display.update()
 
-    else:
+    else:  # If Loser
         screen.fill((255, 255, 255))
         screen.blit(backround_new, (0, 0))
         end_text = "YOU LOSE! :("
@@ -605,13 +606,13 @@ def draw_game_over(winner):
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if restart_rectangle.collidepoint(event.pos):
+                    if restart_rectangle.collidepoint(event.pos):  # Restart Button
                         screen.fill((255, 255, 255))
                         cont = False
             pygame.display.update()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # Initialize Screen Aspects
     pygame.init()
     screen = pygame.display.set_mode((1200, 900))
     pygame.display.set_caption("Sudoku")
@@ -620,7 +621,7 @@ if __name__ == "__main__":
     backround = pygame.image.load("Cumulus_clouds_seen_from_10,000_meters_above_the_ground,_2010.jpg")
     backround_new = pygame.transform.scale(backround, (300, 900))
 
-    # Initialize the game state
+    # Initialize Game States
     removed = 0
     inserted = []
     filled = []
@@ -668,11 +669,10 @@ if __name__ == "__main__":
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
+                if event.type == pygame.MOUSEBUTTONDOWN and not game_over:  # If Cell Is Selected
                     x, y = event.pos
                     row = y // 100
                     col = x // 100
-
                     screen.fill((255, 255, 255))
                     display_grid()
                     draw_original_values()
@@ -682,7 +682,7 @@ if __name__ == "__main__":
                     screen.blit(restart_surface, restart_rectangle)
                     screen.blit(exit_surface, exit_rectangle)
                     display_selected(row, col)
-                    if reset_rectangle.collidepoint(event.pos):
+                    if reset_rectangle.collidepoint(event.pos):  # If Reset Button Is Selected
                         board_copy = board_copy_2
                         board = board_copy_2
                         inserted.clear()
@@ -694,17 +694,17 @@ if __name__ == "__main__":
                         screen.blit(reset_surface, reset_rectangle)
                         screen.blit(restart_surface, restart_rectangle)
                         screen.blit(exit_surface, exit_rectangle)
-                    elif restart_rectangle.collidepoint(event.pos):
+                    elif restart_rectangle.collidepoint(event.pos):  # If Restart Button Is Selected
                         pygame.display.update()
                         screen.fill((255, 255, 255))
                         inserted.clear()
                         filled.clear()
                         game_running = False
-                    elif exit_rectangle.collidepoint(event.pos):
+                    elif exit_rectangle.collidepoint(event.pos):  # If Exit Button Is Selected
                         pygame.quit()
                         sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP and (row - 1 >= 0):
+                if event.type == pygame.KEYDOWN:  
+                    if event.key == pygame.K_UP and (row - 1 >= 0):  # If Up Arrow Key Is Entered
                         screen.fill((255, 255, 255))
                         display_grid()
                         draw_original_values()
@@ -715,7 +715,7 @@ if __name__ == "__main__":
                         screen.blit(exit_surface, exit_rectangle)
                         display_selected(row - 1, col)
                         row = row - 1
-                    elif event.key == pygame.K_DOWN and (row + 1 <= 8):
+                    elif event.key == pygame.K_DOWN and (row + 1 <= 8):  # If Down Arrow Key Is Entered
                         screen.fill((255, 255, 255))
                         display_grid()
                         draw_original_values()
@@ -726,7 +726,7 @@ if __name__ == "__main__":
                         screen.blit(exit_surface, exit_rectangle)
                         display_selected(row + 1, col)
                         row = row + 1
-                    elif event.key == pygame.K_RIGHT and (col + 1 <= 8):
+                    elif event.key == pygame.K_RIGHT and (col + 1 <= 8):  # If Right Arrow Key Is Entered
                         screen.fill((255, 255, 255))
                         display_grid()
                         draw_original_values()
@@ -737,7 +737,7 @@ if __name__ == "__main__":
                         screen.blit(exit_surface, exit_rectangle)
                         display_selected(row, col + 1)
                         col = col + 1
-                    elif event.key == pygame.K_LEFT and (col - 1 >= 0):
+                    elif event.key == pygame.K_LEFT and (col - 1 >= 0):  # If Left Arrow Key Is Entered
                         screen.fill((255, 255, 255))
                         display_grid()
                         draw_original_values()
@@ -749,53 +749,53 @@ if __name__ == "__main__":
                         display_selected(row, col - 1)
                         col = col - 1
                 if event.type == pygame.KEYDOWN and available_again(board, row, col, filled):
-                    if event.key == pygame.K_1:
+                    if event.key == pygame.K_1:  # If 1 Key Is Entered
                         if (row, col) not in inserted:
                             board_copy[row][col] = 1
                             inserted.append((row, col))
                             make_sketch(row, col)
-                    elif event.key == pygame.K_2:
+                    elif event.key == pygame.K_2:  # If 2 Key Is Entered
                         if (row, col) not in inserted:
                             board_copy[row][col] = 2
                             inserted.append((row, col))
                             make_sketch(row, col)
-                    elif event.key == pygame.K_3:
+                    elif event.key == pygame.K_3:  # If 3 Key Is Entered
                         if (row, col) not in inserted:
                             board_copy[row][col] = 3
                             inserted.append((row, col))
                             make_sketch(row, col)
-                    elif event.key == pygame.K_4:
+                    elif event.key == pygame.K_4:  # If 4 Key Is Entered
                         if (row, col) not in inserted:
                             board_copy[row][col] = 4
                             inserted.append((row, col))
                             make_sketch(row, col)
-                    elif event.key == pygame.K_5:
+                    elif event.key == pygame.K_5:  # If 5 Key Is Entered
                         if (row, col) not in inserted:
                             board_copy[row][col] = 5
                             inserted.append((row, col))
                             make_sketch(row, col)
-                    elif event.key == pygame.K_6:
+                    elif event.key == pygame.K_6:  # If 6 Key Is Entered
                         if (row, col) not in inserted:
                             board_copy[row][col] = 6
                             inserted.append((row, col))
                             make_sketch(row, col)
-                    elif event.key == pygame.K_7:
+                    elif event.key == pygame.K_7:  # If 7 Key Is Entered
                         if (row, col) not in inserted:
                             board_copy[row][col] = 7
                             inserted.append((row, col))
                             make_sketch(row, col)
-                    elif event.key == pygame.K_8:
+                    elif event.key == pygame.K_8:  # If 8 Key Is Entered
                         if (row, col) not in inserted:
                             board_copy[row][col] = 8
                             inserted.append((row, col))
                             make_sketch(row, col)
-                    elif event.key == pygame.K_9:
+                    elif event.key == pygame.K_9:  # If 9 Key Is Entered
                         if (row, col) not in inserted:
                             board_copy[row][col] = 9
                             inserted.append((row, col))
                             make_sketch(row, col)
                     if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_BACKSPACE:
+                        if event.key == pygame.K_BACKSPACE:  # If Backspace Key Is Entered
                             board_copy[row][col] = 0
                             inserted.remove((row, col))
                             screen.fill((255, 255, 255))
@@ -806,20 +806,20 @@ if __name__ == "__main__":
                             draw_game()
                             draw_sketches()
                             display_selected(row, col)
-                        if event.key == pygame.K_RETURN:
+                        if event.key == pygame.K_RETURN:  # If Enter Key Is Entered
                             board[row][col] = board_copy[row][col]
                             draw_num()
                             sketchable.remove((row, col))
                             filled.append((row, col))
-                            if board_is_full(board):
-                                if check_if_winner(board, sol_board):
+                            if board_is_full(board): # Checks if Board Is Full
+                                if check_if_winner(board, sol_board): #If Winner
                                     game_over = True
                                     winner = True
                                     if game_over:
                                         pygame.display.update()
                                         pygame.time.delay(1500)
                                         draw_game_over(winner)
-                                else:
+                                else:  # If Loser
                                     game_over = True
                                     if game_over:
                                         pygame.display.update()
