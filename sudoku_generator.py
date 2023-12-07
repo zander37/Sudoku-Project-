@@ -245,7 +245,12 @@ def draw_game_start():  # Draws Start Menu
     # Title
     title_text = "WELCOME TO SUDOKU!"
     title_surf = game_over_font.render(title_text, 0, (0, 0, 0))
-    title_rect = title_surf.get_rect(center=(1200 // 2, 900 // 2 - 150))
+    title_rect = title_surf.get_rect(center=(1200 // 2, 900 // 2 - 250))
+    screen.blit(title_surf, title_rect)
+
+    title_text = "Select Game Mode:"
+    title_surf = game_over_font.render(title_text, 0, (0, 0, 0))
+    title_rect = title_surf.get_rect(center=(1200 // 2, 450))
     screen.blit(title_surf, title_rect)
 
     # Buttons
@@ -277,15 +282,15 @@ def draw_game_start():  # Draws Start Menu
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if easy_rectangle.collidepoint(event.pos):
-                    sol_board, board = sudoku_generator.generate_sudoku(9, 30)
+                    sol_board, board = generate_sudoku(9, 30)
                     screen.fill((255, 255, 255))
                     return sol_board, board
                 elif med_rectangle.collidepoint(event.pos):
-                    sol_board, board = sudoku_generator.generate_sudoku(9, 40)
+                    sol_board, board = generate_sudoku(9, 40)
                     screen.fill((255, 255, 255))
                     return sol_board, board
                 elif hard_rectangle.collidepoint(event.pos):
-                    sol_board, board = sudoku_generator.generate_sudoku(9, 50)
+                    sol_board, board = generate_sudoku(9, 50)
                     screen.fill((255, 255, 255))
                     return sol_board, board
         pygame.display.update()
@@ -359,7 +364,7 @@ def display_selected(row, col):  # Creates a Box To Show Selected
     )
 
 
-def draw_num():  # Draws Numbers on Board
+def draw_num():  # Draws Numbers on Boarde
     # num_zero_surf = number_font.render(' ', 0, (0, 0, 0))
     num_one_surf = number_font.render('1', 0, (0, 0, 0))
     num_two_surf = number_font.render('2', 0, (0, 0, 0))
@@ -631,8 +636,8 @@ if __name__ == "__main__":
         sol_board, board = draw_game_start()
         board_copy = copy.deepcopy(board)
         board_copy_2 = copy.deepcopy(board)
-        sketchable = sudoku_generator.get_sketchable(board)
-        filled.extend(sudoku_generator.get_original(board))
+        sketchable = get_sketchable(board)
+        filled.extend(get_original(board))
         screen.blit(backround_new, (900, 0))
         draw_game()
 
@@ -667,22 +672,22 @@ if __name__ == "__main__":
                     x, y = event.pos
                     row = y // 100
                     col = x // 100
-                    if sudoku_generator.available_square(board, row, col):
-                        screen.fill((255, 255, 255))
-                        display_grid()
-                        draw_original_values()
-                        draw_sketches()
-                        screen.blit(backround_new, (900, 0))
-                        screen.blit(reset_surface, reset_rectangle)
-                        screen.blit(restart_surface, restart_rectangle)
-                        screen.blit(exit_surface, exit_rectangle)
-                        display_selected(row, col)
-                    elif reset_rectangle.collidepoint(event.pos):
+
+                    screen.fill((255, 255, 255))
+                    display_grid()
+                    draw_original_values()
+                    draw_sketches()
+                    screen.blit(backround_new, (900, 0))
+                    screen.blit(reset_surface, reset_rectangle)
+                    screen.blit(restart_surface, restart_rectangle)
+                    screen.blit(exit_surface, exit_rectangle)
+                    display_selected(row, col)
+                    if reset_rectangle.collidepoint(event.pos):
                         board_copy = board_copy_2
-			board = board_copy_2
+                        board = board_copy_2
                         inserted.clear()
                         filled.clear()
-                        filled.extend(sudoku_generator.get_original(board))
+                        filled.extend(get_original(board))
                         screen.fill((255, 255, 255))
                         draw_game()
                         screen.blit(backround_new, (900, 0))
@@ -743,7 +748,7 @@ if __name__ == "__main__":
                         screen.blit(exit_surface, exit_rectangle)
                         display_selected(row, col - 1)
                         col = col - 1
-                if event.type == pygame.KEYDOWN and sudoku_generator.available_again(board, row, col, filled):
+                if event.type == pygame.KEYDOWN and available_again(board, row, col, filled):
                     if event.key == pygame.K_1:
                         if (row, col) not in inserted:
                             board_copy[row][col] = 1
@@ -806,8 +811,8 @@ if __name__ == "__main__":
                             draw_num()
                             sketchable.remove((row, col))
                             filled.append((row, col))
-                            if sudoku_generator.board_is_full(board):
-                                if sudoku_generator.check_if_winner(board, sol_board):
+                            if board_is_full(board):
+                                if check_if_winner(board, sol_board):
                                     game_over = True
                                     winner = True
                                     if game_over:
