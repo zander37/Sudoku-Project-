@@ -1,4 +1,4 @@
-import math, random, copy, sys, pygame
+import pygame, sys, copy, sudoku_generator
 
 
 def draw_game_start():  # Draws Start Menu
