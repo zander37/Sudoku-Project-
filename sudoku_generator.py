@@ -1,4 +1,4 @@
-import math, random, copy, sys, pygame
+import math, random, copy
 
 
 class SudokuGenerator:
